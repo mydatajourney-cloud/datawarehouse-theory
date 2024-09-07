@@ -40,15 +40,8 @@ DW có thể build trên các:
 - Datamart depend có thể áp dụng trong những trường hợp khi dữ liệu từ datawarehouse đa dạng và khá nhiều chủ đề cần được chia nhỏ ra thành các datamart. Ví dụ phòng marketing chỉ có thể lấy dữ liệu từ datamart phù hợp so với phòng sale.
 
 # DATA warehouse tree
-- Centrallized: advantaged  → EDW → Relational database
+![image](https://github.com/user-attachments/assets/c47e900a-7594-4c8a-b019-67fc9d9520d9)
 
-                                                                       → Specialized database.
-
-                                                       → DATA LAKES → hadoop.
-
-                                                                                    → Specialized database.
-
-                                                                                    → others (aws s3, …) .  
 
 EDW:  Enterprise Data warehouse (old)
 
@@ -58,13 +51,7 @@ DATA LAKES: dành cho các công ty cần quản lý dữ liệu lớn.
 
 ⇒ Chịu ảnh hưởng bởi việc thay đổi dữ liệu trong dw (bad)
 
-- Component-based: advantaged → architech → DW + DMS → Depend data marts
-
-                                                                                                                      → Front-end data marts
-
-                                                                                            → DMs only    → DW bus
-
-                                                                    → Non- Architech → Federated EDW
+![image](https://github.com/user-attachments/assets/f6645751-2885-490a-8484-576c1e197bc9)
 
 Depend dms: dữ liệu từ data warehouse chạy dọc xuống các data marts 
 
