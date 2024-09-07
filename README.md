@@ -1,4 +1,4 @@
-# datawarehouse-theory and data modeling 
+# Datawarehouse-theory and data modeling 
 ## Overview
 Đây là kiến thức mình nhặt được trong quá trình học khoá học udemy về data warehouse. 
 ## Table of Contents
@@ -39,7 +39,7 @@ DW có thể build trên các:
 - Datawarehouse và datamart independent khá là giống nhau
 - Datamart depend có thể áp dụng trong những trường hợp khi dữ liệu từ datawarehouse đa dạng và khá nhiều chủ đề cần được chia nhỏ ra thành các datamart. Ví dụ phòng marketing chỉ có thể lấy dữ liệu từ datamart phù hợp so với phòng sale.
 
-# DATA warehouse tree
+## DATA warehouse tree
 ![image](https://github.com/user-attachments/assets/c47e900a-7594-4c8a-b019-67fc9d9520d9)
 
 
@@ -111,3 +111,53 @@ Có 2 loại ETL: ETL initial và ETL incremental
 ⇒ Tuy nhiên append và inplace-update được sử dụng phổ biến hơn.
 
 *Mix and match of ETL incremental: data warehouse sẽ được cập nhật dữ liệu từ nhiều nguồn khác nhau. Trong những nguồn khác nhau dữ liệu sẽ được cập nhật theo giờ, theo ngày hoặc theo tuần tuỳ theo thiết kế và yêu cầu.
+
+## Data transformation principle
+
+*Principle of unification: mang ý nghĩa là dữ liệu phải được thống nhất với nhau khi được đưa vào dimensional table về mặt ngữ nghĩa và kích thước của các loại dữ liệu ( char, int…)
+
+⇒ Ví dụ có 2 cột đều mang ý nghĩa là cấp bậc của các giảng viên, cột 1 có các giá trị lần lượt là giáo sư, tiến sĩ , thạc sĩ và cột 2 có các giá trị lần lượt là GS , TS, Ths. Ta có thể hợp dữ liệu lại sao cho các cột cấp bậc có dữ liệu nhất quán trong dimension table. Cột cấp bậc sẽ được đổi thành: GS, TS, Ths cho nhất quán với cột 2.
+
+*Principle of de-duplication: mang ý nghĩa là dữ liệu không được trùng lặp khi đưa vào master dimensional table.
+
+⇒ Ví dụ một sinh viên A có thể đăng ký 2 môn học ở 2 khoa khác nhau chính vì thế dữ liệu của sinh viên A sẽ đều nằm ở 2 bảng ( tương ứng 2 khoa) . Tuy nhiên master dimensional table chỉ yêu thông tin sinh viên A chính vì thế ta phải loại bỏ dữ liệu trùng lặp trước khi đưa vào 
+
+*Principle of vertical slicing: mang ý nghĩa là các cột mà chúng ta nghĩ sẽ không cần thiết cho việc phân tích sẽ được loại bỏ
+
+*Principle of horizontal slicing: mang ý nghĩa các dòng mà chúng ta thấy rằng sẽ không cần thiết hoặc bị lỗi sẽ được lọc hoặc correct lại. 
+
+⇒ Sẽ có những use case khi dữ liệu sẽ được phân ra thành các data marts, mỗi data mart sẽ chỉ có nội dung chuyên sâu khác nhau để phân tích sâu hơn. Vì thế ta cần phải lọc dữ liệu tương ứng với những data marts khác nhau. 
+
+⇒ Ví dụ có rất nhiều phòng ban trong công ty và mỗi phòng ban có thể có một data mart. Ta chỉ muốn bỏ dữ liệu marketing vào data mart marketing nên ta sẽ lọc những phòng ban khác ra.
+
+## Facts, Facts Table, Dimension, Dimensional table
+
+*Facts: 
+
+- Thuộc dạng số và có thể đếm được
+- Là những giá trị đo lường (metric)
+- Là những giá trị đo đếm (measurements). Ví dụ như giá trị trung binh điểm, học sinh có điểm cao nhất lớp..
+
+⇒ Ví dụ: tiền lương, số năm…
+
+*Facts Table: là nơi chứa những Facts
+
+*Dimension: là bối cảnh (chủ đề) của những Facts
+
+⇒ Ví dụ: Một mô hình cây sẽ gồm sản phẩm sức khoẻ ⇒ sản phẩm thuộc về tóc, da, cơ thể ⇒ các loại sản phẩm tương ứng tóc, da, cơ thể. Ngoài ra sẽ còn những mô hình khác là sản phẩm điện gia dụng, sản phẩm giải trí. Thì dimension sẽ là “sản phẩm”
+
+⇒ Trong use case trên star schema sẽ gồm 3 dimension table tương ứng với 3 mục ở mô hình cây bên trên và Snow Flake schema sẽ chỉ gồm 1 dimension table với 3 mục ở mô hình cây bên trên. 
+
+Lưu ý: Dimension table: là nơi chứa những Dimensions.
+
+## Principle of additivity
+
+Có 2 loại additivity: additivity và non-additivity
+
+*Additivity: áp dụng khi ta muốn tính tổng của một giá trị nào đó 
+
+⇒ Ví dụ ta có một bảng danh sách học phí của trường từ năm 2015-2018 gồm id, tên , số tiền mà cô/anh ấy phải trả cho một năm học, năm học. Theo use case trên thì additivity được áp dụng theo cột khi ta muốn tính **tổng tiền** mà trường nhận được từ các sinh viên. Ngoài ra additivity được áp dụng theo dòng khi ta muốn biết t**ổng tiền** mà một học sinh A phải đóng từ năm (2015-2017)
+
+*Non-additivity fact: áp dụng để nhắc rằng các số như phần trăm, điểm trung bình, tính trung bình không được phép cộng. 
+
+*Semi-additivity fact: áp dụng cho periodic snap shot, dạng này có nghĩa là value có thể hoặc không có thể tính tổng một giá trị nào đó.
