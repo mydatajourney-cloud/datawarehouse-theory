@@ -175,3 +175,40 @@ Có 2 loại additivity: additivity và non-additivity
 - Foreign key: là khoá chính của bảng khác.
 - Natural key: là dữ liệu định danh nhưng thường đi vào từ source thay vì được tạo ra từ hệ thống có thể thuộc dạng chữ hoặc số nhưng chúng thường k có nghĩa về mặt truy vấn
 - Surrogate key: là dữ liệu định danh thường được tạo ra từ hệ thống và không mang ý nghĩa bên ngoài như natural key. Surrogate key rất quan trọng, thường được sử dụng data warehouse với syntax (_key) và như là primary key
+
+## Fact table types, Fact table government
+
+*Có 4 loại Fact table: Transaction, Periodic snapshot, Accumulating snapshot ,Factless 
+
+- Transaction: ghi lại những facts ở trong transaction
+- Periodic snapshot: ghi lại những measurements theo một thời gian lặp lại nhất định
+- Accumulating snapshot: ghi lại những bussiness process
+
+*Transaction Fact table: là loại bảng rất quan trọng trong data warehouse.
+
+- Để tạo được một bảng Fact ta cần phải có “measure” và “context measure”.
+
+⇒ Ví dụ Fact table của ta tên Học_Phí_fact. Vậy thì measure của nó sẽ là số_tiền,  context measure sẽ là Key ID của học sinh và  Key của ngày thanh toán. Từ đó các key sẽ được nối tới các bảng dim khác như Key_học_sinh sẽ nối tới bảng hoc_sinh_dim và key_date sẽ nối tới bảng ngày_thanh_toán_dim. 
+
+⇒ Vậy ta không lưu dữ liệu ở bảng Fact mà ta lưu những KEY của những dữ liệu có liên quan ở bảng Fact. 
+
+*Periodic snapshot table: 
+
+- Đối với những use case cần phải theo dõi sự thay đổi của những measurements ta không thể sử dụng bảng Transaction vì nó sẽ khiến việc phân tích phức tạp hơn.
+- Ta có thể tách periodic snapshot table và transaction table thay vì để gộp chung vào transaction table để giúp việc phân tích dễ dàng hơn.
+
+⇒ Ví dụ trong trường hợp ta cần theo dõi mức chi tiêu của những khách hàng sử dụng thẻ theo tuần. Tuy nhiên ta chỉ có fact table.
+
+*Fact table rules: có 2 quy tắc cần phải theo khi xây dựng Fact table. 
+
+- Các Facts phải có cùng mức độ chi tiết và dimension thì mới có thể đưa vào cùng một bảng Fact
+
+⇒ Ví dụ dim_hoá_đơn và dim_thanh_toán của một sản phẩm sẽ gồm Key_sản_phẩm và Key_ngày. Và thoả quy tắc một 
+
+- Các Facts phải có thời điểm xảy ra với nhau thì mới có thể đưa vào cùng một bảng Fact
+
+⇒ Ví dụ dim_hoá_đơn và dim_thanh_toán sẽ có thời gian xảy ra khác hơn. Chính vì thế sẽ không thoả quy tắc 2.
+
+⇒ Với use case trên ta buộc phải có 2 bảng Fact khác nhau và mỗi bảng đều nối với 2 bảng dim (vì chúng cùng thoả quy tắc 1)
+
+⇒ Trong trường hợp thoả cả 2 quy tắc. Ví dụ cả 2 Fact đều về Billing (tiền học và tiền hoạt động ngoại khoá) thì cả 2 Fact này đều nằm cùng bảng một bảng Fact
