@@ -88,3 +88,26 @@ Federated EDW: cũ và nên là phương án cuối vì nhiều DMs quá sẽ kh
     
 
 *User Access Layer:
+
+# Types of ETL
+
+Có 2 loại ETL: ETL initial và ETL incremental
+
+*ETL initial: loại ETL này có nghĩa là ETL khởi đầu, tức là dữ liệu đi từ source đi vào staging layer, biến đổi và vào user access layer để xây dựng data warehouse lần đầu tiên .
+
+- Được thực hiện khi data warehouse bắt đầu chạy lần đầu.
+- Thực hiện lại ETL initial để xây dựng lại data warehouse từ đầu, khi mà data warehouse cũ gặp sự cố.
+- Chỉ các dữ liệu liên quan mới đi vào data warehouse.
+
+*ETL incremental:  loại ETL này có nghĩa là ETL tăng dần, tức là dữ liệu đi từ source đi vào staging layer, biến đổi và thêm vào user access layer khi mà trước đó user access layer đã có dữ liệu từ ETL initial. 
+
+- Được thực hiện khi data warehouse đã có dữ liệu.
+- Thực hiện ETL incremental để thêm dữ liệu và thay đổi dữ liệu hoặc xoá dữ liệu.
+
+⇒ Chúng ta sử dụng ETL incremental nhằm mục đích giúp cho data warehouse luôn được cập nhật. Lưu ý rằng dữ liệu data warehouse sẽ là dữ liệu tĩnh và non-votile tức là trong khi các BI đang thực hiện phân tích dữ liệu thì data warehouse không thể bị thay đổi. 
+
+- Có 4 loại ETL incremental: append( thêm) , inplace update (thay đổi tại vị trí),  complete-replacement(thay đổi hoàn toàn), rolling update( thêm vào dữ liệu và xoá dữ liệu cũ).
+
+⇒ Tuy nhiên append và inplace-update được sử dụng phổ biến hơn.
+
+*Mix and match of ETL incremental: data warehouse sẽ được cập nhật dữ liệu từ nhiều nguồn khác nhau. Trong những nguồn khác nhau dữ liệu sẽ được cập nhật theo giờ, theo ngày hoặc theo tuần tuỳ theo thiết kế và yêu cầu.
