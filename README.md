@@ -3,7 +3,7 @@
 Đây là kiến thức mình nhặt được trong quá trình nghiên cứu các khoá học về data modeling và data warehouse 
 ## Table of Contents
 
-1. [Quy tắc khi xây dựng datawarehouse](##HowtobuildDW?)
+1. [Quy tắc khi xây dựng datawarehouse ?](##HowtobuildDW?)
 2. [Usage](#usage)
 3. [Features](#features)
 4. [Contributing](#contributing)
@@ -14,8 +14,7 @@
 9. [Troubleshooting](#troubleshooting)
 10. [Contact](#contact)
     
-## HowtobuildDW?
-## How to build DW ?
+## Quy tắc khi xây dựng datawarehouse ?
 
 - Interagrated: DW là một môi trường tích hợp, nói cách khác nó lưu trữ dữ liệu từ nhiều ngồn khác nhau
 - Subject oriented: Các dữ liệu lưu trữ trong dw phải được sắp xếp theo các chủ đề, dù cho nó từ nhiều nguồn và các hệ thống khác nhau
