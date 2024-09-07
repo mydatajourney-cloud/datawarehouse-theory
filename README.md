@@ -14,7 +14,7 @@
 9. [Troubleshooting](#troubleshooting)
 10. [Contact](#contact)
 
-# How to build DW ?
+## How to build DW ?
 
 - Interagrated: DW là một môi trường tích hợp, nói cách khác nó lưu trữ dữ liệu từ nhiều ngồn khác nhau
 - Subject oriented: Các dữ liệu lưu trữ trong dw phải được sắp xếp theo các chủ đề, dù cho nó từ nhiều nguồn và các hệ thống khác nhau
@@ -34,7 +34,7 @@ DW có thể build trên các:
 - Relational database
 - Cubes (multi dimensional database
 
-# Datawarehouse vs datamart
+## Datawarehouse vs datamart
 
 - Datawarehouse và datamart independent khá là giống nhau
 - Datamart depend có thể áp dụng trong những trường hợp khi dữ liệu từ datawarehouse đa dạng và khá nhiều chủ đề cần được chia nhỏ ra thành các datamart. Ví dụ phòng marketing chỉ có thể lấy dữ liệu từ datamart phù hợp so với phòng sale.
@@ -63,7 +63,7 @@ Federated EDW: cũ và nên là phương án cuối vì nhiều DMs quá sẽ kh
 
 ⇒ Decomposion: dữ liệu được chia nhỏ thành các thành phần, tránh ảnh hưởng bởi việc thay đổi dw.
 
-# Data warehouse architechture
+## Data warehouse architechture
 
 *Có 2 lớp ở trong data warehouse: Staging Layer và User Access Layer 
 
@@ -89,7 +89,7 @@ Federated EDW: cũ và nên là phương án cuối vì nhiều DMs quá sẽ kh
 
 *User Access Layer:
 
-# Types of ETL
+## Types of ETL
 
 Có 2 loại ETL: ETL initial và ETL incremental
 
