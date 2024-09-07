@@ -3,7 +3,7 @@
 Đây là kiến thức mình nhặt được trong quá trình nghiên cứu các khoá học về data modeling và data warehouse 
 ## Table of Contents
 
-1. [Quy tắc khi xây dựng datawarehouse](## How to build DW ?)
+1. [Quy tắc khi xây dựng datawarehouse](##HowtobuildDW?)
 2. [Usage](#usage)
 3. [Features](#features)
 4. [Contributing](#contributing)
@@ -13,7 +13,7 @@
 8. [Examples](#examples)
 9. [Troubleshooting](#troubleshooting)
 10. [Contact](#contact)
-
+##HowtobuildDW?
 ## How to build DW ?
 
 - Interagrated: DW là một môi trường tích hợp, nói cách khác nó lưu trữ dữ liệu từ nhiều ngồn khác nhau
