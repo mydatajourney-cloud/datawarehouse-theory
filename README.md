@@ -15,15 +15,22 @@
 10. [Contact](#contact)
 
 ## Installation
+# How to build DW ?
 
-To install this project, follow these steps:
+- Interagrated: DW là một môi trường tích hợp, nói cách khác nó lưu trữ dữ liệu từ nhiều ngồn khác nhau
+- Subject oriented: Các dữ liệu lưu trữ trong dw phải được sắp xếp theo các chủ đề, dù cho nó từ nhiều nguồn và các hệ thống khác nhau
+- Time variant: Các dữ liệu trong DW phải được lưu dữ ở các khoảng thời gian khác nhau chứ không chỉ là hiện tại .
+- Non-volatile: DW không được chịu ảnh hưởng bởi các khoảng cập nhật dữ liệu, sau mỗi lần “refresh”  dw sẽ được cập nhật dữ liệu theo các khối.
+- ⇒ Hỗ trợ cho việc phân tích và ra quyết định dựa trên dữ liệu.
 
-```bash
-# Clone the repository
-git clone https://github.com/username/project-name.git
+Tại sao phải xây dựng DW → Hỗ trợ việc phân tích và ra quyết định dựa trên dữ liệu → tại sao ?
 
-# Navigate to the project directory
-cd project-name
+- Quan sát dữ liệu ở quá khứ
+- Quan sát dữ liệu ở hiện tại
+- Quan sát dữ liệu ở tương lai ( dữ liệu mà ta tin là đúng ví dụ AI)
+- Quan sát dữ liệu unknown
 
-# Install dependencies
-npm install
+DW có thể build trên các: 
+
+- Relational database
+- Cubes (multi dimensional database
