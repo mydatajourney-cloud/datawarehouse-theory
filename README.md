@@ -2,7 +2,7 @@
 
 ## Overview
 
-Đây là kiến thức mình nhặt được trong quá trình nghiên cứu các khoá học về data modeling và data warehouse.
+Đây là kiến thức mình nhặt được trong quá trình nghiên cứu các khoá học về data modeling và data warehouse. Table of contents được viết bằng tiếng anh để dễ search google và tìm hiểu thêm, còn lại nội dung sẽ là tiếng Việt
 
 ## Table of Contents
 
