@@ -1,9 +1,9 @@
 # Datawarehouse-theory and data modeling 
 ## Overview
-Đây là kiến thức mình nhặt được trong quá trình học khoá học udemy về data warehouse. 
+Đây là kiến thức mình nhặt được trong quá trình nghiên cứu các khoá học về data modeling và data warehouse 
 ## Table of Contents
 
-1. [Quy tắc khi xây dựng datawarehouse](#installation)
+1. [Quy tắc khi xây dựng datawarehouse](## How to build DW ?)
 2. [Usage](#usage)
 3. [Features](#features)
 4. [Contributing](#contributing)
@@ -161,3 +161,16 @@ Có 2 loại additivity: additivity và non-additivity
 *Non-additivity fact: áp dụng để nhắc rằng các số như phần trăm, điểm trung bình, tính trung bình không được phép cộng. 
 
 *Semi-additivity fact: áp dụng cho periodic snap shot, dạng này có nghĩa là value có thể hoặc không có thể tính tổng một giá trị nào đó.
+
+## Star vs Snow Flake schema, key types
+
+- Như đã nói trong mục 7, tất cả level của một mô hình cây sẽ được quy thành 1 dimension table đối với Star schema, còn đối với Snow Flake chema số level sẽ tương ứng với số dimension table.
+- Star schema cần sử dụng join ít vì không các data đều quy thành 1 demension table thay vào đó các bảng liên kết nhau theo các khoá chính (primary key) và khoá ngoại (foreign key).
+- Ngược lại Snow Flake schema cần sử dụng join nhiều hơn vì nó phải chia mô hình cây thành các dimension table và sử dụng khoá và khoá ngoại sẽ phức tạp hơn.
+
+*Có 4 loại key để biểu diễn mối quan hệ dữ liệu: Primary key, Foreign key, Natural key, Surrgorate key
+
+- Primary key: là dữ liệu định danh của bảng (ID).
+- Foreign key: là khoá chính của bảng khác.
+- Natural key: là dữ liệu định danh nhưng thường đi vào từ source thay vì được tạo ra từ hệ thống có thể thuộc dạng chữ hoặc số nhưng chúng thường k có nghĩa về mặt truy vấn
+- Surrogate key: là dữ liệu định danh thường được tạo ra từ hệ thống và không mang ý nghĩa bên ngoài như natural key. Surrogate key rất quan trọng, thường được sử dụng data warehouse với syntax (_key) và như là primary key
