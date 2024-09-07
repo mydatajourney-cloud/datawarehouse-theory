@@ -1,11 +1,9 @@
 # datawarehouse-theory and data modeling 
 ## Overview
-
-This project is designed to [briefly describe the main purpose and functionality of the project]. It aims to [explain the main goal or benefit of the project].
-
+Đây là kiến thức mình nhặt được trong quá trình học khoá học udemy về data warehouse. 
 ## Table of Contents
 
-1. [Installation](#installation)
+1. [Quy tắc khi xây dựng datawarehouse](#installation)
 2. [Usage](#usage)
 3. [Features](#features)
 4. [Contributing](#contributing)
