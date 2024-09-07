@@ -1,31 +1,32 @@
-# Datawarehouse-theory and data modeling
+# Datawarehouse Theory and Data Modeling
 
 ## Overview
 
-Đây là kiến thức mình nhặt được trong quá trình nghiên cứu các khoá học về data modeling và data warehouse. Table of contents sẽ được viết bằng tiếng anh cho dễ tra cứu thêm và nội dung sẽ được viết bằng tiếng việt. 
+Đây là kiến thức mình nhặt được trong quá trình nghiên cứu các khoá học về data modeling và data warehouse. **Table of Contents** sẽ được viết bằng tiếng Anh cho dễ tra cứu thêm và nội dung sẽ được viết bằng tiếng Việt.
 
 ## Table of Contents
 
-1. [Quy tắc khi xây dựng datawarehouse ?](#how-to-build-data-warehouse)
-2. [Data warehouse vs data mart](#data-warehouse-vs-data-mart)
-3. [Data warehouse tree](#data-warehouse-tree)
-4. [Data warehouse architecture](#data-warehouse-architecture)
+1. [How to Build Data Warehouse?](#how-to-build-data-warehouse)
+2. [Data Warehouse vs Data Mart](#data-warehouse-vs-data-mart)
+3. [Data Warehouse Tree](#data-warehouse-tree)
+4. [Data Warehouse Architecture](#data-warehouse-architecture)
 5. [Types of ETL](#types-of-etl)
-6. [Data transformation principle](#data-transformation-principle)
-7. [Facts, Facts Table, Dimension, Dimensional table](#facts-facts-table-dimension-dimensional-table)
-8. [Principle of additivity](#principle-of-additivity)
-9. [Star vs Snow Flake schema, key types](#star-vs-snow-flake-schema-key-types)
-10. [Fact table types, Fact table government](#fact-table-types-fact-table-government)
+6. [Data Transformation Principle](#data-transformation-principle)
+7. [Facts, Facts Table, Dimension, Dimensional Table](#facts-facts-table-dimension-dimensional-table)
+8. [Principle of Additivity](#principle-of-additivity)
+9. [Star vs Snow Flake Schema, Key Types](#star-vs-snow-flake-schema-key-types)
+10. [Fact Table Types, Fact Table Government](#fact-table-types-fact-table-government)
 
-## How to build data warehouse ?
+## How to Build Data Warehouse?
 
-- Integrated: DW là một môi trường tích hợp, nói cách khác nó lưu trữ dữ liệu từ nhiều nguồn khác nhau
-- Subject oriented: Các dữ liệu lưu trữ trong DW phải được sắp xếp theo các chủ đề, dù cho nó từ nhiều nguồn và các hệ thống khác nhau
-- Time variant: Các dữ liệu trong DW phải được lưu trữ ở các khoảng thời gian khác nhau chứ không chỉ là hiện tại.
-- Non-volatile: DW không được chịu ảnh hưởng bởi các khoảng cập nhật dữ liệu, sau mỗi lần “refresh” DW sẽ được cập nhật dữ liệu theo các khối.
-- ⇒ Hỗ trợ cho việc phân tích và ra quyết định dựa trên dữ liệu.
+- **Integrated**: DW là một môi trường tích hợp, nói cách khác nó lưu trữ dữ liệu từ nhiều nguồn khác nhau.
+- **Subject Oriented**: Các dữ liệu lưu trữ trong DW phải được sắp xếp theo các chủ đề, dù cho nó từ nhiều nguồn và các hệ thống khác nhau.
+- **Time Variant**: Các dữ liệu trong DW phải được lưu trữ ở các khoảng thời gian khác nhau chứ không chỉ là hiện tại.
+- **Non-Volatile**: DW không bị ảnh hưởng bởi các khoảng cập nhật dữ liệu, sau mỗi lần “refresh” DW sẽ được cập nhật dữ liệu theo các khối.
 
-Tại sao phải xây dựng DW → Hỗ trợ việc phân tích và ra quyết định dựa trên dữ liệu → tại sao?
+  ⇒ Hỗ trợ cho việc phân tích và ra quyết định dựa trên dữ liệu.
+
+Tại sao phải xây dựng DW? → Hỗ trợ việc phân tích và ra quyết định dựa trên dữ liệu → Tại sao?
 
 - Quan sát dữ liệu ở quá khứ
 - Quan sát dữ liệu ở hiện tại
@@ -34,136 +35,160 @@ Tại sao phải xây dựng DW → Hỗ trợ việc phân tích và ra quyết
 
 DW có thể build trên các:
 
-- Relational database
-- Cubes (multi-dimensional database)
+- Relational Database
+- Cubes (Multi-Dimensional Database)
 
-## Data warehouse vs data mart
+## Data Warehouse vs Data Mart
 
-- Datawarehouse và datamart independent khá là giống nhau
-- Datamart dependent có thể áp dụng trong những trường hợp khi dữ liệu từ datawarehouse đa dạng và khá nhiều chủ đề cần được chia nhỏ ra thành các datamart. Ví dụ phòng marketing chỉ có thể lấy dữ liệu từ datamart phù hợp so với phòng sale.
+- **Data Warehouse** và **Data Mart** independent khá là giống nhau.
+- **Data Mart Dependent** có thể áp dụng trong những trường hợp khi dữ liệu từ Data Warehouse đa dạng và khá nhiều chủ đề cần được chia nhỏ ra thành các Data Mart. Ví dụ: Phòng marketing chỉ có thể lấy dữ liệu từ Data Mart phù hợp so với phòng sale.
 
-## Data warehouse tree
-![image](https://github.com/user-attachments/assets/c47e900a-7594-4c8a-b019-67fc9d9520d9)
+## Data Warehouse Tree
 
-EDW: Enterprise Data warehouse (old)
+![Data Warehouse Tree](https://github.com/user-attachments/assets/c47e900a-7594-4c8a-b019-67fc9d9520d9)
 
-DATA LAKES: dành cho các công ty cần quản lý dữ liệu lớn.
+- **EDW (Enterprise Data Warehouse)**: Old model.
+- **DATA LAKES**: Dành cho các công ty cần quản lý dữ liệu lớn.
 
-⇒ One stop shopping: dữ liệu từ các nguồn đều tập trung vào 1 DW
+  ⇒ **One Stop Shopping**: Dữ liệu từ các nguồn đều tập trung vào 1 DW.
 
-⇒ Chịu ảnh hưởng bởi việc thay đổi dữ liệu trong DW (bad)
+  ⇒ **Chịu ảnh hưởng bởi việc thay đổi dữ liệu trong DW** (bad).
 
-![image](https://github.com/user-attachments/assets/f6645751-2885-490a-8484-576c1e197bc9)
+![Data Warehouse Tree](https://github.com/user-attachments/assets/f6645751-2885-490a-8484-576c1e197bc9)
 
-Depend DMS: dữ liệu từ data warehouse chạy dọc xuống các data marts
+- **Depend DMS**: Dữ liệu từ Data Warehouse chạy dọc xuống các Data Marts.
+- **Front-end DMS**: Dùng khi một phần dữ liệu từ các Data Marts được đưa xuống Data Warehouse cho những phân tích khác.
+- **DW Bus**: Cũ và nên là phương án cuối vì nhiều DMs quá sẽ không tốt.
+- **Federated EDW**: Cũ và nên là phương án cuối vì nhiều DMs quá sẽ không tốt.
 
-Front-end DMS: dùng khi một phần dữ liệu đi ngược từ các data marts được đưa xuống data warehouse cho những phân tích khác.
+  ⇒ **Decomposition**: Dữ liệu được chia nhỏ thành các thành phần, tránh ảnh hưởng bởi việc thay đổi DW.
 
-DW bus: cũ và nên là phương án cuối vì nhiều DMs quá sẽ không tốt.
+## Data Warehouse Architecture
 
-Federated EDW: cũ và nên là phương án cuối vì nhiều DMs quá sẽ không tốt.
+**Có 2 lớp ở trong Data Warehouse**:
 
-⇒ Decomposition: dữ liệu được chia nhỏ thành các thành phần, tránh ảnh hưởng bởi việc thay đổi DW.
+- **Staging Layer**: Lưu trữ các dữ liệu lấy từ nguồn với điều kiện là các dữ liệu phải giống với nguồn và ít bị can thiệp.
+  
+  - Nếu có nhiều nguồn từ nhiều application khác nhau = có nhiều bảng staging tương ứng.
+  - Nếu có nhiều nguồn nhưng cùng một application = có gộp các bảng staging tương ứng.
 
-## Data warehouse architecture
+  **Có 2 loại Staging Layer**:
 
-*Có 2 lớp ở trong data warehouse: Staging Layer và User Access Layer*
-
-*Staging layer*: lưu trữ các dữ liệu lấy từ nguồn với điều kiện là các dữ liệu phải giống với nguồn và ít bị can thiệp.
-
-- Nếu có nhiều nguồn từ nhiều application khác nhau = có nhiều bảng staging tương ứng
-- Nếu có nhiều nguồn nhưng cùng một application = có gộp các bảng staging tương ứng
-
-*Có 2 loại Staging Layer: duy trì và không duy trì*
-
-- Staging Layer duy trì là dữ liệu ở staging sẽ không bị xoá khi mà dữ liệu đã đi vào User Access Layer.
+  - **Duy trì**: Dữ liệu ở staging sẽ không bị xoá khi mà dữ liệu đã đi vào User Access Layer.
     
-    ⇒ Tốn rất nhiều storage để giữ lại dữ liệu
+    ⇒ Tốn rất nhiều storage để giữ lại dữ liệu.
     
     ⇒ Có thể không kiểm soát được quyền truy cập người nào truy cập được dữ liệu ở staging layer.
+
+  - **Không duy trì**: Dữ liệu ở staging sẽ không được giữ lại khi mà dữ liệu đã đi vào User Access Layer.
     
-- Staging Layer không duy trì là dữ liệu ở staging sẽ không được giữ lại khi mà dữ liệu đã đi vào User Access Layer.
-    
-    ⇒ Tốn ít storage hơn nhưng nếu dữ liệu ở User Access Layer có vấn đề (bị hư) hoặc cần phải xây dựng lại data warehouse thì không có dữ liệu có sẵn.
+    ⇒ Tốn ít storage hơn nhưng nếu dữ liệu ở User Access Layer có vấn đề (bị hư) hoặc cần phải xây dựng lại Data Warehouse thì không có dữ liệu có sẵn.
     
     ⇒ Ngoài ra lưu dữ liệu ở staging layer còn giúp cho việc kiểm tra chất lượng dữ liệu.
 
-*User Access Layer*:
+- **User Access Layer**: (Chưa có nội dung mô tả chi tiết trong README)
 
 ## Types of ETL
 
-Có 2 loại ETL: ETL initial và ETL incremental
+Có 2 loại ETL: **ETL Initial** và **ETL Incremental**.
 
-*ETL initial*: loại ETL này có nghĩa là ETL khởi đầu, tức là dữ liệu đi từ source đi vào staging layer, biến đổi và vào user access layer để xây dựng data warehouse lần đầu tiên.
-
-- Được thực hiện khi data warehouse bắt đầu chạy lần đầu.
-- Thực hiện lại ETL initial để xây dựng lại data warehouse từ đầu, khi mà data warehouse cũ gặp sự cố.
-- Chỉ các dữ liệu liên quan mới đi vào data warehouse.
-
-*ETL incremental*: loại ETL này có nghĩa là ETL tăng dần, tức là dữ liệu đi từ source đi vào staging layer, biến đổi và thêm vào user access layer khi mà trước đó user access layer đã có dữ liệu từ ETL initial.
-
-- Được thực hiện khi data warehouse đã có dữ liệu.
-- Thực hiện ETL incremental để thêm dữ liệu và thay đổi dữ liệu hoặc xoá dữ liệu.
-
-⇒ Chúng ta sử dụng ETL incremental nhằm mục đích giúp cho data warehouse luôn được cập nhật. Lưu ý rằng dữ liệu data warehouse sẽ là dữ liệu tĩnh và non-volatile tức là trong khi các BI đang thực hiện phân tích dữ liệu thì data warehouse không thể bị thay đổi.
-
-- Có 4 loại ETL incremental: append (thêm), inplace update (thay đổi tại vị trí), complete-replacement (thay đổi hoàn toàn), rolling update (thêm vào dữ liệu và xoá dữ liệu cũ).
-
-⇒ Tuy nhiên, append và inplace-update được sử dụng phổ biến hơn.
-
-*Mix and match of ETL incremental*: data warehouse sẽ được cập nhật dữ liệu từ nhiều nguồn khác nhau. Trong những nguồn khác nhau dữ liệu sẽ được cập nhật theo giờ, theo ngày hoặc theo tuần tuỳ theo thiết kế và yêu cầu.
-
-## Data transformation principle
-
-*Principle of unification*: mang ý nghĩa là dữ liệu phải được thống nhất với nhau khi được đưa vào dimensional table về mặt ngữ nghĩa và kích thước của các loại dữ liệu (char, int…)
-
-⇒ Ví dụ có 2 cột đều mang ý nghĩa là cấp bậc của các giảng viên, cột 1 có các giá trị lần lượt là giáo sư, tiến sĩ, thạc sĩ và cột 2 có các giá trị lần lượt là GS, TS, Ths. Ta có thể hợp dữ liệu lại sao cho các cột cấp bậc có dữ liệu nhất quán trong dimension table. Cột cấp bậc sẽ được đổi thành: GS, TS, Ths cho nhất quán với cột 2.
-
-*Principle of de-duplication*: mang ý nghĩa là dữ liệu không được trùng lặp khi đưa vào master dimensional table.
-
-⇒ Ví dụ một sinh viên A có thể đăng ký 2 môn học ở 2 khoa khác nhau chính vì thế dữ liệu của sinh viên A sẽ đều nằm ở 2 bảng (tương ứng 2 khoa). Tuy nhiên master dimensional table chỉ yêu thông tin sinh viên A chính vì thế ta phải loại bỏ dữ liệu trùng lặp trước khi đưa vào.
-
-*Principle of vertical slicing*: mang ý nghĩa là các cột mà chúng ta nghĩ sẽ không cần thiết cho việc phân tích sẽ được loại bỏ
-
-*Principle of horizontal slicing*: mang ý nghĩa các dòng mà chúng ta thấy rằng sẽ không cần thiết hoặc bị lỗi sẽ được lọc hoặc correct lại.
-
-⇒ Sẽ có những use case khi dữ liệu sẽ được phân ra thành các data marts, mỗi data mart sẽ chỉ có nội dung chuyên sâu khác nhau để phân tích sâu hơn. Vì thế ta cần phải lọc dữ liệu tương ứng với những data marts khác nhau.
-
-⇒ Ví dụ có rất nhiều phòng ban trong công ty và mỗi phòng ban có thể có một data mart. Ta chỉ muốn bỏ dữ liệu marketing vào data mart marketing nên ta sẽ lọc những phòng ban khác ra.
-
-## Facts, Facts Table, Dimension, Dimensional table
-
-*Facts*:
-
-- Thuộc dạng số và có thể đếm được
-- Là những giá trị đo lường (metric)
-- Là những giá trị đo đếm (measurements). Ví dụ như giá trị trung bình điểm, học sinh có điểm cao nhất lớp..
-
-⇒ Ví dụ: tiền lương, số năm…
-
-*Facts Table*: là nơi chứa những Facts
-
-*Dimension*: là bối cảnh (chủ đề) của những Facts
-
-⇒ Ví dụ như: phòng ban, giảng viên, học sinh…
-
-*Dimensional table*: bảng lưu trữ các Dimension
-
-## Principle of additivity
-
-- Additivity principle là một nguyên lý trong data warehousing mà yêu cầu dữ liệu phải có khả năng cộng dồn, tính toán hoặc tổng hợp được.
-
-## Star vs Snow Flake schema, key types
-
-- **Star Schema**: một loại schema trong đó fact table được liên kết trực tiếp với các dimension tables.
+- **ETL Initial**: Loại ETL này có nghĩa là ETL khởi đầu, tức là dữ liệu đi từ source vào staging layer, biến đổi và vào user access layer để xây dựng Data Warehouse lần đầu tiên.
   
-- **Snow Flake Schema**: một biến thể của star schema trong đó các dimension tables được chuẩn hóa thành nhiều bảng con.
+  - Được thực hiện khi Data Warehouse bắt đầu chạy lần đầu.
+  - Thực hiện lại ETL Initial để xây dựng lại Data Warehouse từ đầu khi mà Data Warehouse cũ gặp sự cố.
+  - Chỉ các dữ liệu liên quan mới đi vào Data Warehouse.
 
-- **Key Types**: bao gồm primary key, foreign key, và surrogate key.
+- **ETL Incremental**: Loại ETL này có nghĩa là ETL tăng dần, tức là dữ liệu đi từ source vào staging layer, biến đổi và thêm vào user access layer khi mà trước đó user access layer đã có dữ liệu từ ETL Initial.
+  
+  - Được thực hiện khi Data Warehouse đã có dữ liệu.
+  - Thực hiện ETL Incremental để thêm dữ liệu và thay đổi dữ liệu hoặc xoá dữ liệu.
 
-## Fact table types, Fact table government
+  ⇒ Chúng ta sử dụng ETL Incremental nhằm mục đích giúp cho Data Warehouse luôn được cập nhật. Lưu ý rằng dữ liệu Data Warehouse sẽ là dữ liệu tĩnh và non-volatile tức là trong khi các BI đang thực hiện phân tích dữ liệu thì Data Warehouse không thể bị thay đổi.
 
-- **Fact Table Types**: các loại fact tables bao gồm transactional, snapshot, và accumulating.
+  - Có 4 loại ETL Incremental: **Append (Thêm)**, **Inplace Update (Thay đổi tại vị trí)**, **Complete-Replacement (Thay đổi hoàn toàn)**, **Rolling Update (Thêm vào dữ liệu và xoá dữ liệu cũ)**.
 
-- **Fact Table Government**: quản lý fact table liên quan đến việc duy trì tính toàn vẹn của dữ liệu và chính sách cập nhật.
+  ⇒ Tuy nhiên, **Append** và **Inplace Update** được sử dụng phổ biến hơn.
 
+- **Mix and Match of ETL Incremental**: Data Warehouse sẽ được cập nhật dữ liệu từ nhiều nguồn khác nhau. Trong những nguồn khác nhau, dữ liệu sẽ được cập nhật theo giờ, theo ngày hoặc theo tuần tuỳ theo thiết kế và yêu cầu.
+
+## Data Transformation Principle
+
+- **Principle of Unification**: Dữ liệu phải được thống nhất với nhau khi được đưa vào dimensional table về mặt ngữ nghĩa và kích thước của các loại dữ liệu (char, int…).
+
+  ⇒ Ví dụ: Có 2 cột đều mang ý nghĩa là cấp bậc của các giảng viên, cột 1 có các giá trị lần lượt là giáo sư, tiến sĩ, thạc sĩ và cột 2 có các giá trị lần lượt là GS, TS, Ths. Ta có thể hợp dữ liệu lại sao cho các cột cấp bậc có dữ liệu nhất quán trong dimension table. Cột cấp bậc sẽ được đổi thành: GS, TS, Ths cho nhất quán với cột 2.
+
+- **Principle of De-Duplication**: Dữ liệu không được trùng lặp khi đưa vào master dimensional table.
+
+  ⇒ Ví dụ: Một sinh viên A có thể đăng ký 2 môn học ở 2 khoa khác nhau chính vì thế dữ liệu của sinh viên A sẽ đều nằm ở 2 bảng (tương ứng 2 khoa). Tuy nhiên master dimensional table chỉ yêu thông tin sinh viên A chính vì thế ta phải loại bỏ dữ liệu trùng lặp trước khi đưa vào.
+
+- **Principle of Vertical Slicing**: Các cột mà chúng ta nghĩ sẽ không cần thiết cho việc phân tích sẽ được loại bỏ.
+
+- **Principle of Horizontal Slicing**: Các dòng mà chúng ta thấy rằng sẽ không cần thiết hoặc bị lỗi sẽ được lọc hoặc correct lại.
+
+  ⇒ Ví dụ: Có rất nhiều phòng ban trong công ty và mỗi phòng ban có thể có một Data Mart. Ta chỉ muốn bỏ dữ liệu marketing vào Data Mart marketing nên ta sẽ lọc những phòng ban khác ra.
+
+## Facts, Facts Table, Dimension, Dimensional Table
+
+- **Facts**:
+  - Thuộc dạng số và có thể đếm được.
+  - Là những giá trị đo lường (metric).
+  - Là những giá trị đo đếm (measurements). Ví dụ: tiền lương, số năm…
+
+- **Facts Table**: Là nơi chứa những Facts.
+
+- **Dimension**: Là bối cảnh (chủ đề) của những Facts.
+
+  ⇒ Ví dụ: Phòng ban, giảng viên, học sinh…
+
+- **Dimensional Table**: Bảng lưu trữ các Dimension.
+
+## Principle of Additivity
+
+Có 3 loại additivity: **Additivity**, **Non-Additivity**, và **Semi-Additivity**.
+
+- **Additivity**: Áp dụng khi ta muốn tính tổng của một giá trị nào đó.
+
+  ⇒ Ví dụ: Ta có một bảng danh sách học phí của trường từ năm 2015-2018 gồm id, tên, số tiền mà cô/anh ấy phải trả cho một năm học, năm học. Additivity được áp dụng theo cột khi ta muốn tính **tổng tiền** mà trường nhận được từ các sinh viên. Ngoài ra, Additivity được áp dụng theo dòng khi ta muốn biết **tổng tiền** mà một học sinh A phải đóng từ năm (2015-2017).
+
+- **Non-Additivity**: Áp dụng để nhắc rằng các số như phần trăm, điểm trung bình, tính trung bình không được phép cộng.
+
+- **Semi-Additivity**: Áp dụng cho periodic snapshot, dạng này có nghĩa là value có thể hoặc không có thể tính tổng một giá trị nào đó.
+
+## Star vs Snow Flake Schema, Key Types
+
+- **Star Schema**: Tất cả level của một mô hình cây sẽ được quy thành 1 dimension table. Cần sử dụng join ít vì không có nhiều dimension tables. Các bảng liên kết nhau theo các khoá chính (primary key) và khoá ngoại (foreign key).
+
+- **Snow Flake Schema**: Các level của mô hình cây sẽ tương ứng với số dimension tables. Cần sử dụng join nhiều hơn vì phải chia mô hình cây thành các dimension tables và sử dụng khoá và khoá ngoại sẽ phức tạp hơn.
+
+**Có 4 loại key để biểu diễn mối quan hệ dữ liệu**:
+
+- **Primary Key**: Là dữ liệu định danh của bảng (ID).
+- **Foreign Key**: Là khoá chính của bảng khác.
+- **Natural Key**: Là dữ liệu định danh thường đi vào từ source thay vì được tạo ra từ hệ thống.
+- **Surrogate Key**: Là dữ liệu định danh thường được tạo ra từ hệ thống và không mang ý nghĩa bên ngoài như natural key.
+
+## Fact Table Types, Fact Table Government
+
+Có 4 loại Fact Table:
+
+- **Transaction**: Ghi lại những facts trong transaction.
+- **Periodic Snapshot**: Ghi lại những measurements theo một thời gian lặp lại nhất định.
+- **Accumulating Snapshot**: Ghi lại những business processes.
+- **Factless**: Ghi lại sự hiện diện của một event.
+
+**Transaction Fact Table**: Là loại bảng rất quan trọng trong Data Warehouse.
+
+  - Để tạo được một bảng Fact, ta cần có “measure” và “context measure”.
+
+  ⇒ Ví dụ: Fact Table của ta tên `Học_Phí_fact`. Measure của nó sẽ là `số_tiền`, context measure sẽ là `Key ID` của học sinh và `Key` của ngày thanh toán.
+
+**Periodic Snapshot Table**: Đối với những use case cần phải theo dõi sự thay đổi của những measurements, ta có thể tách periodic snapshot table và transaction table để giúp việc phân tích dễ dàng hơn.
+
+  ⇒ Ví dụ: Theo dõi mức chi tiêu của khách hàng sử dụng thẻ theo tuần.
+
+**Fact Table Rules**:
+
+- Các Facts phải có cùng mức độ chi tiết và dimension thì mới có thể đưa vào cùng một bảng Fact.
+- Các Facts phải có thời điểm xảy ra với nhau thì mới có thể đưa vào cùng một bảng Fact.
+
+  ⇒ Ví dụ: Nếu cả 2 Fact đều về Billing (tiền học và tiền hoạt động ngoại khoá), thì cả 2 Fact này đều nằm trong cùng một bảng Fact.
